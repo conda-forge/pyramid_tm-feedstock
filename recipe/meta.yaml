@@ -1,25 +1,26 @@
 {% set name = "pyramid_tm" %}
-{% set version = "2.4" %}
+{% set version = "2.5" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 5fd6d4ac9181a65ec54e5b280229ed6d8b3ed6a8f5a0bcff05c572751f086533
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 5c81dcecd33770f5e3596687d2be35ffc4f8ce5eda00a31acb00ae35a51430d0
 
 build:
   noarch: python
   number: 0
-  script: "{{ PYTHON }} -m pip install . -vv"
+  script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
-    - python >=3.6
+    - python {{ python_min }}
+    - setuptools
     - pip
   run:
-    - python >=3.6
+    - python >={{ python_min }}
     - pyramid >=1.5
     - transaction >=2.0
 
@@ -32,7 +33,7 @@ about:
   license: LicenseRef-Pylons
   license_family: BSD
   license_file: LICENSE.txt
-  summary: 'Pyramid requests joining the Python transaction package'
+  summary: Pyramid requests joining the Python transaction package
   description: |
     pyramid_tm is a package which allows Pyramid requests to join the
     active transaction as provided by the Python transaction package.
